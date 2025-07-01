@@ -11,11 +11,21 @@
 perintah di atas berutujuan untuk merubah password root yang tak bisa login dimenu login
 
 #NO.2
+Cara menyeting IPV4Address
+- nmcli connection modify enp0s3 autoconnect yes ipv4.method manual ipv4.addresses 172....... ipv4.gateway 172........ ipv4.dns 202.......
+Cara menyeting IPV4Address ke setingan default DHCP
+- nmcli connection modify enp0s3 ipv4.method auto
+- nmcli connection modify enp0s3 ipv4.addresses "" ipv4.gateway "" ipv4.dns ""
+- nmcli connection down enp0s3
+- nmcli connection up enp0s3
+  
 - chage -m 7 root	= Set minimum 7 hari sebelum bisa ganti password lagi.
 - chage -W 5 root	= Tampilkan peringatan 5 hari sebelum password expired.
 - chage -E 2025-12-31 root = Set akun root expired pada 31 Desember 2025.
 - chage -l root = Menampilkan informasi masa berlaku password user root.
 
+#NO.3
+- yum install httpd -y = perintah untuk menginstal httpd jikan belum terinstal
 - systemctl status httpd = Menampilkan status layanan httpd (Apache HTTP Server).
 - systemctl enable httpd = Mengatur agar layanan httpd otomatis berjalan saat booting.
 - systemctl stop httpd = memberhentikan layanan httpd (Apache HTTP Server).
@@ -37,14 +47,18 @@ perintah di atas berutujuan untuk merubah password root yang tak bisa login dime
 Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar akan diblokir oleh firewall.
 - firewall-cmd --reload = Memuat ulang konfigurasi firewall agar perubahan yang dilakukan dengan --permanent mulai berlaku.
 
+#NO.4
 - groupadd sysadmin = Membuat grup bernama sysadmin, jika belum ada.
-- useradd -G sysadmin harry =Membuat user harry, dan menambahkan dia ke grup tambahan sysadmin. Grup utama tetap harry, dan sysadmin jadi grup tambahan.
-- echo "password" | passwd --stdin harry = Memberikan password "password" ke user harry secara otomatis (non-interaktif)
+- useradd -G sysadmin harry = Membuat user harry, dan menambahkan dia ke grup tambahan sysadmin. Grup utama tetap harry, dan sysadmin jadi grup tambahan.
+- useradd -s /sbin/nologin sarah = Perintah ini membuat user bernama sarah, tapi user tersebut tidak bisa login ke shell.
+  KET : Opsi -s /sbin/nologin biasanya dipakai bukan untuk user manusia yang akan login, tapi untuk user sistem atau user khusus, biasanya digunakan untuk kepemilikan file/direktory contoh user nologin yang umum dibuat = User 'www-data' (untuk Apache di Debian/Ubuntu), User 'nginx' (untuk Nginx), dan User 'mysql' (untuk MySQL)
+- echo "user1234" | passwd --stdin harry = Memberikan password "user1234" ke user harry secara otomatis (non-interaktif)
 
-Cara menyeting IPV4Address
-- nmcli connection modify enp0s3 autoconnect yes ipv4.method manual ipv4.addresses 172....... ipv4.gateway 172........ ipv4.dns 202.......
-Cara menyeting IPV4Address ke setingan default DHCP
-- nmcli connection modify enp0s3 ipv4.method auto
-- nmcli connection modify enp0s3 ipv4.addresses "" ipv4.gateway "" ipv4.dns ""
-- nmcli connection down enp0s3
-- nmcli connection up enp0s3
+- which useradd = untuk mengetahui lokasi lengkap binary perintah useradd, hasilnya "/usr/sbin/useradd" Ini path lengkap yang nanti kamu pakai di konfigurasi sudoers
+- visudo = perintah untuk mengedit file sudoers
+  lalu cari bagian "%wheel ALL=(ALL) ALL", lalu tambahkan perintah dibagian bawahnya
+  1. ALL=/usr/sbin/useradd (Penjelasan: %sysadmin = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
+  2. harry  ALL=(ALL)       NOPASSWD: /usr/bin/passwd (User harry Bisa menjalankan /usr/bin/passwd tanpa diminta password sudo.)
+
+
+
