@@ -1,5 +1,6 @@
 # Catatan-belajar-REDHAT
 - nmtui = perintah untuk menyeting IP Address
+
 #NO.1
 - Ketika vm redhat dijalankan, pada tampilan awal restart klik "e"
 - Tambahkan "rw init=/bin/bash" di baris akhir initrd
