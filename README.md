@@ -11,8 +11,10 @@
 perintah di atas berutujuan untuk merubah password root yang tak bisa login dimenu login
 
 #NO.2
+
 Cara menyeting IPV4Address
 - nmcli connection modify enp0s3 autoconnect yes ipv4.method manual ipv4.addresses 172....... ipv4.gateway 172........ ipv4.dns 202.......
+
 Cara menyeting IPV4Address ke setingan default DHCP
 - nmcli connection modify enp0s3 ipv4.method auto
 - nmcli connection modify enp0s3 ipv4.addresses "" ipv4.gateway "" ipv4.dns ""
