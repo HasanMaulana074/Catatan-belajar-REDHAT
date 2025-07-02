@@ -59,6 +59,36 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
   lalu cari bagian "%wheel ALL=(ALL) ALL", lalu tambahkan perintah dibagian bawahnya
   1. ALL=/usr/sbin/useradd (Penjelasan: %sysadmin = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
   2. harry  ALL=(ALL)       NOPASSWD: /usr/bin/passwd (User harry Bisa menjalankan /usr/bin/passwd tanpa diminta password sudo.)
+ 
+#NO.5
+- sudo vi /etc/yum.repos.d/local.repo = membuat file bernama local.repo dan langsung mengeditnya, lalu ketikan perintah berikut di dalam file local.repo
+  [Repo-BaseOS]
+  name=BaseOS
+  baseurl=http://foundation0.ilt.example.com/dvd/BaseOS
+  enabled=1
+  gpgcheck=0
+
+  [Repo-AppStream]
+  name=AppStream
+  baseurl=http://foundation0.ilt.example.com/dvd/AppStream
+  enabled=1
+  gpgcheck=0
+- ls /etc/yum.repos.d/ = untuk melihat file local.repo sudah dibuat atau belum
+- sudo yum clean all = Membersihkan cache lama
+- sudo yum repolist = Menampilkan daftar repository yang aktif
+
+- sudo vi /etc/hosts = mengedit file hosts dengan mengetikan di dalamnya "192.168.18.200   foundation0.ilt.example.com"
+- sudo vi /etc/chrony.conf = Konfigurasi NTP server supaya sinkron waktu dengan mengetikan di dalamnya perintah  "server foundation0.ilt.example.com iburst"
+- sudo systemctl restart chronyd.service =  merestart chrony
+- sudo systemctl enable/disable chronyd
+- sudo systemctl status chronyd = mengecek status chrony
+- chronyc sources -v = mengecek status ntp
+
+
+
+
+
+
 
 
 
