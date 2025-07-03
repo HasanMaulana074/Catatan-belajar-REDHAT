@@ -50,8 +50,8 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
 - firewall-cmd --reload = Memuat ulang konfigurasi firewall agar perubahan yang dilakukan dengan --permanent mulai berlaku.
 
 #NO.4
-- groupadd sysadmin = Membuat grup bernama sysadmin, jika belum ada.
-- useradd -G sysadmin harry = Membuat user harry, dan menambahkan dia ke grup tambahan sysadmin. Grup utama tetap harry, dan sysadmin jadi grup tambahan.
+- groupadd sysadm = Membuat grup bernama sysadm, jika belum ada.
+- useradd -G sysadm harry = Membuat user harry, dan menambahkan dia ke grup tambahan sysadm. Grup utama tetap harry, dan sysadm jadi grup tambahan.
 - useradd -s /sbin/nologin sarah = Perintah ini membuat user bernama sarah, tapi user tersebut tidak bisa login ke shell.
   KET : Opsi -s /sbin/nologin biasanya dipakai bukan untuk user manusia yang akan login, tapi untuk user sistem atau user khusus, biasanya digunakan untuk kepemilikan file/direktory contoh user nologin yang umum dibuat = User 'www-data' (untuk Apache di Debian/Ubuntu), User 'nginx' (untuk Nginx), dan User 'mysql' (untuk MySQL)
 - echo "user1234" | passwd --stdin harry = Memberikan password "user1234" ke user harry secara otomatis (non-interaktif)
@@ -59,7 +59,7 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
 - which useradd = untuk mengetahui lokasi lengkap binary perintah useradd, hasilnya "/usr/sbin/useradd" Ini path lengkap yang nanti kamu pakai di konfigurasi sudoers
 - visudo = perintah untuk mengedit file sudoers
   lalu cari bagian "%wheel ALL=(ALL) ALL", lalu tambahkan perintah dibagian bawahnya
-  1. ALL=/usr/sbin/useradd (Penjelasan: %sysadmin = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
+  1. ALL=/usr/sbin/useradd (Penjelasan: %sysadm = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
   2. harry  ALL=(ALL)       NOPASSWD: /usr/bin/passwd (User harry Bisa menjalankan /usr/bin/passwd tanpa diminta password sudo.)
  
 #NO.5
@@ -85,6 +85,17 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
 - sudo systemctl enable/disable chronyd
 - sudo systemctl status chronyd = mengecek status chrony
 - chronyc sources -v = mengecek status ntp
+
+#NO.6
+- mkdir -p /shared/sysadm = membuat direktori bernama sysadm
+- chown root:sysadm /shared/sysadm = setel kepemilikan direktory dengan Ownernya tetap root dan Group ownership menjadi sysadm
+- chmod 2770 /shared/sysadm = Atur permission supaya hanya grup sysadm yang bisa mengakses, membaca, menulis
+  1. Mengapa 2770?
+    2 = Setgid bit (penting agar file yang dibuat otomatis mewarisi group ownership sysadm).
+    7 (rwx) = owner (root) bisa membaca/menulis/mengeksekusi.
+    7 (rwx) = group sysadm bisa membaca/menulis/mengeksekusi.
+    0 = user lain tidak punya akses sama sekali.
+- ls -ld /shared/sysadm = Cek ownership dan permission
 
 
 
