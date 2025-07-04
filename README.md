@@ -3,8 +3,8 @@
 
 #NO.1
 - Ketika vm redhat dijalankan, pada tampilan awal restart klik "e"
-- Tambahkan "rw init=/bin/bash" di baris akhir initrd
-- lalu tekan Ctrl+x
+- Tambahkan "rw init=/bin/bash" di baris akhir linux /boot/vmlinuz-... ro ...
+- lalu tekan Ctrl+x atau f10
 - lalu masukan perintah "passwd" untuk merubah password root, lalu masukan password rootnya,lalu enter
 - touch /.autorelabel = membuat file
 - /sbin/reboot -f = merestar sistem
