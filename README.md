@@ -97,6 +97,32 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
     0 = user lain tidak punya akses sama sekali.
 - ls -ld /shared/sysadm = Cek ownership dan permission
 
+#NO.7
+- crontab -u natasha -e = mengedit crontab milik natasha
+  Di dalam editor, tambahkan baris berikut:
+  20 14 * * * /usr/bin/logger "EX200 in progress"
+CATATAN :
+ Mari kita pecah baris ini:
+
+    20 14 * * *: Ini adalah jadwalnya.
+
+        20: Menit ke-20.
+
+        14: Jam ke-14 (format 24 jam, yaitu 2 PM).
+
+        * * *: Setiap hari, setiap bulan, dan setiap hari dalam seminggu.
+
+    /usr/bin/logger "EX200 in progress": Ini adalah perintah yang akan dieksekusi.
+
+        /usr/bin/logger: Path lengkap ke perintah logger. Menggunakan path lengkap adalah praktik terbaik dalam cron job.
+
+        "EX200 in progress": Pesan yang akan dicatat (di-log) ke dalam log sistem.
+- crontab -u natasha -l = melihat daftar cron job milik natasha
+- systemctl status crond.service = Untuk memeriksa status
+- systemctl enable crond.service = Untuk mengaktifkan saat boot (jika belum aktif)
+- systemctl restart crond.service = Untuk memulai atau me-restart layanan
+
+
 
 
 
