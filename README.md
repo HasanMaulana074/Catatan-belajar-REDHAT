@@ -26,6 +26,8 @@ Cara menyeting IPV4Address ke setingan default DHCP
 - chage -E 2025-12-31 root = Set akun root expired pada 31 Desember 2025.
 - chage -l root = Menampilkan informasi masa berlaku password user root.
 
+- hostnamectl set-hostname username = untuk merubah hosname
+
 #NO.3
 - yum install httpd -y = perintah untuk menginstal httpd jikan belum terinstal
 - systemctl status httpd = Menampilkan status layanan httpd (Apache HTTP Server).
