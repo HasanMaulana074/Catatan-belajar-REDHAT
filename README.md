@@ -61,7 +61,7 @@ Tanpa ini: Meskipun Apache sudah jalan di port 82, tapi permintaan dari luar aka
 - which useradd = untuk mengetahui lokasi lengkap binary perintah useradd, hasilnya "/usr/sbin/useradd" Ini path lengkap yang nanti kamu pakai di konfigurasi sudoers
 - visudo = perintah untuk mengedit file sudoers
   lalu cari bagian "%wheel ALL=(ALL) ALL", lalu tambahkan perintah dibagian bawahnya
-  1. ALL=/usr/sbin/useradd (Penjelasan: %sysadm = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
+  1.%namagrup ALL=/usr/sbin/useradd (Penjelasan: %sysadm = semua user yang menjadi member group sysadmin. Diizinkan menjalankan perintah /usr/sbin/useradd.Hanya perintah ini saja, tidak yang lain.)
   2. harry  ALL=(ALL)       NOPASSWD: /usr/bin/passwd (User harry Bisa menjalankan /usr/bin/passwd tanpa diminta password sudo.)
  
 #NO.5
